@@ -1,0 +1,28 @@
+@layer components {
+	.sidebar {
+		@apply h-screen bg-zinc-900 flex flex-col transition-all duration-500 text-white relative;
+
+		&__wrapper {
+			@apply flex items-center flex-col justify-between p-4 pb-10 h-full;
+		}
+
+		&__elements {
+			@apply flex flex-col gap-y-5 w-full;
+		}
+
+		&__link {
+			@apply flex w-full p-2 rounded transition-colors duration-300 items-center;
+			@apply hover:bg-white/10;
+		}
+
+		&__button {
+			@apply absolute top-[50%] -right-5 bg-zinc-900 p-2 rounded-tr-full rounded-br-full transition-all duration-300;
+			@apply hover:bg-zinc-900/70;
+		}
+
+		&__logout {
+			@apply flex items-center rounded-lg gap-x-10 bg-gradient-to-r from-orange-500 to-pink-700 px-5 py-3 transition-all duration-150;
+			@apply hover:opacity-85;
+		}
+	}
+}
