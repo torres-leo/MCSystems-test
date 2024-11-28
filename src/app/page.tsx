@@ -1,33 +1,29 @@
 'use client';
 
-import { getCompanies } from '@/core/lib/company';
-import { useQuery } from '@tanstack/react-query';
+import { FormEvent } from 'react';
 import { toast } from 'react-toastify';
-import { FormEvent, useState } from 'react';
-import { zodValidator } from '@tanstack/zod-form-adapter';
+import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from '@tanstack/react-form';
-import { z } from 'zod';
+import { useQuery } from '@tanstack/react-query';
+import { zodValidator } from '@tanstack/zod-form-adapter';
 
-import { DataTable } from './_components/company/data-table';
-import { columns } from './_components/company/columns';
 import { Country } from '@/core/interfaces/Company';
-import { Input } from './_components/ui/shadcn/input';
-import { Button } from './_components/ui/shadcn/button';
+import { Input, Button } from './_components/ui/shadcn';
+import { getCompanies } from '@/core/lib/company';
+import { companySchema } from '@/core/lib/validators/company';
+import { columns, DataTable } from './_components/company';
+import { RootState } from '@/core/store/store';
+import { resetCountry, setCountry } from '@/core/store/slices/countrySlice';
+import Loader from './_components/ui/Loader';
 
 export default function Home() {
-	const [country, setCountry] = useState<string | undefined>();
+	const dispatch = useDispatch();
+	const country = useSelector((state: RootState) => state.country.countryValue);
 
-	const { data, isLoading, error } = useQuery({
+	const { data, isLoading, error, refetch } = useQuery({
 		queryKey: ['companies'],
 		queryFn: () => getCompanies(country as Country | undefined),
 		enabled: true,
-	});
-
-	const formSchema = z.object({
-		country: z.enum(
-			[Country.Canada, Country.Germany, Country.Netherlands, Country.Spain, Country.UnitedStatesOfAmerica],
-			{ message: 'Ingresa un pais válido: Canada | Germany | Netherlands | Spain | United States of America' }
-		),
 	});
 
 	const form = useForm({
@@ -35,18 +31,23 @@ export default function Home() {
 			country: '',
 		},
 		validatorAdapter: zodValidator(),
-		onSubmit: (values) => {
-			console.log(values);
+		onSubmit: ({ value }) => {
+			dispatch(setCountry(value.country as Country));
+			refetch();
 		},
 		validators: {
-			onSubmit: formSchema,
+			onSubmit: companySchema,
 		},
 		onSubmitInvalid: ({ formApi, value }) => {
+			if (!value.country) {
+				return toast.error('El campo Pais es requerido');
+			}
+
 			toast.error(formApi.state.errorMap.onSubmit?.toString());
 		},
 	});
 
-	if (isLoading) return <p>Loading...</p>;
+	if (isLoading) return <Loader />;
 
 	if (error instanceof Error) {
 		toast.error(error.message);
@@ -58,10 +59,17 @@ export default function Home() {
 		return <DataTable columns={columns} data={data} />;
 	};
 
+	const handleClear = async () => {
+		form.reset();
+		await dispatch(resetCountry());
+		await refetch();
+	};
+
 	const handleSubmit = (e: FormEvent) => {
 		e.preventDefault();
 		e.stopPropagation();
-		console.log(e);
+
+		refetch();
 	};
 
 	return (
@@ -79,21 +87,25 @@ export default function Home() {
 								className='max-w-xs'
 								id='country'
 								list='valid-countries'
-								placeholder='Ingresa el nombre de un pais'
-								value={field.state.value}
+								placeholder='ej: Spain'
+								value={field.state.value.toLowerCase().charAt(0).toUpperCase() + field.state.value.slice(1)}
 								onChange={(e) => field.handleChange(e.target.value)}
 							/>
+
 							{field.state.meta.errors && (
-								<span className='text-sm text-red-500 font-semibold leading-4 absolute -bottom-6'>
+								<span className='text-xs text-red-500 font-semibold leading-4 absolute -bottom-6'>
 									{field.state.meta.errors}
 								</span>
 							)}
 
 							<Button
 								className='w-16 border bg-transparent bg-cyan-600 border-cyan-600 transition-all duration-200 hover:bg-cyan-600 hover:text-white'
-								onClick={form.handleSubmit}>
+								onClick={form.handleSubmit}
+								disabled={!field.state.value}>
 								Buscar
 							</Button>
+
+							{country && <Button onClick={handleClear}>Ver todas las empresas</Button>}
 						</div>
 					)}
 				/>
@@ -106,6 +118,7 @@ export default function Home() {
 					<option value='United States of America'></option>
 				</datalist>
 			</form>
+
 			{renderData()}
 		</section>
 	);

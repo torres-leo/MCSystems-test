@@ -15,12 +15,3 @@ export const getCompanies = async (country?: Country): Promise<Company[] | Error
 		throw new Error((error as Error).message || 'Failed to retrieve data');
 	}
 };
-
-export const getCompaniesByCountry = async (country: Country): Promise<Company[] | ErrorResponse> => {
-	const { data } = await axiosInstance.get('', {
-		params: {
-			country: country,
-		},
-	});
-	return data;
-};
