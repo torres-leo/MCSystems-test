@@ -2,8 +2,9 @@ import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import './globals.scss';
 
+import { TanstackProvider } from '@/core/providers/tanstack.provider';
+import { StoreProvider } from '@/core/providers/store.provider';
 import Sidebar from '@/app/_components/ui/Sidebar';
-import { TanstackProvider } from './_components/providers/tanstack.provider';
 import ToastNotify from './_components/ui/ToastNotify';
 
 const geistSans = localFont({
@@ -30,13 +31,15 @@ export default function RootLayout({
 	return (
 		<html lang='es'>
 			<body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-slate-50`}>
-				<div className='flex '>
-					<Sidebar />
-					<main className='pt-10 ps-10 pe-5 w-full overflow-hidden'>
-						<TanstackProvider>{children}</TanstackProvider>
-					</main>
-					<ToastNotify />
-				</div>
+				<StoreProvider>
+					<div className='flex '>
+						<Sidebar />
+						<main className='pt-10 ps-10 pe-5 w-full overflow-hidden'>
+							<TanstackProvider>{children}</TanstackProvider>
+						</main>
+						<ToastNotify />
+					</div>
+				</StoreProvider>
 			</body>
 		</html>
 	);

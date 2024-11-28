@@ -10,7 +10,7 @@ import { navElements } from '@/data/NavElements';
 import CustomIcon from '@/app/_components/ui/CustomIcon';
 
 function Sidebar() {
-	const [sidebarOpen, setSidebarOpen] = useState<boolean>(true);
+	const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
 
 	const handleSidebarOpen = () => {
 		setSidebarOpen(!sidebarOpen);

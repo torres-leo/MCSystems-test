@@ -2,14 +2,14 @@
 
 import {
 	ColumnDef,
+	ColumnFiltersState,
 	flexRender,
 	getCoreRowModel,
-	useReactTable,
-	getPaginationRowModel,
-	SortingState,
-	getSortedRowModel,
-	ColumnFiltersState,
 	getFilteredRowModel,
+	getPaginationRowModel,
+	getSortedRowModel,
+	SortingState,
+	useReactTable,
 } from '@tanstack/react-table';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/app/_components/ui/shadcn/table';
 import { Button } from '../ui/shadcn/button';
@@ -43,7 +43,7 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
 	return (
 		<>
 			<div>
-				<h4 className='text-2xl font-semibold mb-4'>Filtra datos:</h4>
+				<h4 className='text-2xl font-semibold mb-4'>Filtrar datos:</h4>
 
 				<div className='flex items-center gap-x-6 mb-4'>
 					<FilterInput
