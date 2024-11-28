@@ -1,4 +1,4 @@
-import { NavLink } from '@/types';
+import { NavLink } from '@/core/types';
 import { CgNotes } from 'react-icons/cg';
 import { FaRegEdit } from 'react-icons/fa';
 

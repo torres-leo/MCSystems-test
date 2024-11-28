@@ -1,6 +1,6 @@
 @layer components {
 	.sidebar {
-		@apply h-screen bg-zinc-900 flex flex-col transition-all duration-500 text-white relative;
+		@apply h-screen bg-zinc-900 flex flex-col transition-all duration-500 text-white sticky top-0;
 
 		&__wrapper {
 			@apply flex items-center flex-col justify-between p-4 pb-10 h-full;

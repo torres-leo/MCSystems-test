@@ -5,9 +5,9 @@ import { CgLogOut } from 'react-icons/cg';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { NavLink } from '@/types';
+import { NavLink } from '@/core/types';
 import { navElements } from '@/data/NavElements';
-import CustomIcon from '@/app/_components/Icon/CustomIcon';
+import CustomIcon from '@/app/_components/ui/CustomIcon';
 
 function Sidebar() {
 	const [sidebarOpen, setSidebarOpen] = useState<boolean>(true);
@@ -29,12 +29,12 @@ function Sidebar() {
 	};
 
 	return (
-		<aside className={`sidebar ${sidebarOpen ? 'w-80' : 'w-32'}`}>
+		<aside className={`sidebar ${sidebarOpen ? 'w-96' : 'w-32'}`}>
 			<div className='sidebar__wrapper'>
 				<div className={`sidebar__elements`}>
 					<Link href='/' className='mx-auto'>
 						{sidebarOpen ? (
-							<Image src={'/images/financiera-logo.png'} alt='logo' width={220} height={100} />
+							<Image className='' src={'/images/financiera-logo.png'} alt='logo' width={220} height={100} priority />
 						) : (
 							<Image src={'/images/financiera-ico.png'} alt='logo' width={70} height={70} />
 						)}
