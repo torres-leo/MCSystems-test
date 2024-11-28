@@ -22,7 +22,8 @@ Tambien decidí implementar redux toolkit, solamente para manejar si el usuario 
     bun install
     ```
 
-2. ```bash
+3. Levantar el proyecto:
+    ```bash
    npm run dev
    # or
    yarn dev
@@ -32,4 +33,4 @@ Tambien decidí implementar redux toolkit, solamente para manejar si el usuario 
    bun dev
    ```
 
-3. Abrir [http://localhost:3000](http://localhost:3000) en tu navegador.
+4. Abrir [http://localhost:3000](http://localhost:3000) en tu navegador.
