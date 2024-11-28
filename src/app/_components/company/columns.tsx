@@ -34,9 +34,9 @@ export const columns: ColumnDef<Company>[] = [
 			);
 		},
 		cell: ({ row }) => {
-			const value = row.getValue('FechaCreacion');
+			const value = row.getValue('FechaCreacion') as string;
 
-			return <span className='text-center block'>{value as string}</span>;
+			return <span className='text-center block'>{value}</span>;
 		},
 	},
 	{ accessorKey: 'PrincipalProducto', header: 'Producto principal' },
