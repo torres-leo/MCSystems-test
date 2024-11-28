@@ -3,14 +3,24 @@ Link del projecto desplegado: [MCSystems-Leo-Torres](https://mc-systems-test-leo
 ## Arquitectura
 
 El proyecto está hecho en Nextjs. Decidí implementar la estructura de carpetas basandome un poco
-[Screaming Architecture](https://www.milanjovanovic.tech/blog/screaming-architecture), ya que considero puede llegar a
-ser una estructura mas organizada en cuanto archivos si en un caso un proyecto llegase a tener gran cantidad de ellos.
+[Screaming Architecture](https://www.milanjovanovic.tech/blog/screaming-architecture), ya que considero puede llegar a ser una estructura mas organizada en cuanto archivos si en un caso un proyecto llegase a tener gran cantidad de ellos.
 
 Tambien decidí implementar redux toolkit, solamente para manejar si el usuario quiere buscar por algún pais en específico, esto lo hice asi porque en un momento consideré utilizar esta variable fuera del principal componente donde la utilizo (Aunque no fue asi al final). 
 
 ## Ejecutar en local
 
 1. Bajar el repo
+
+2. Desde la terminal, acceder a la carpeta del proyecto y ejectutar: 
+    ```bash
+    npm install
+    # or
+    yarn install | yarn
+    # or
+    pnpm install
+    # or
+    bun install
+    ```
 
 2. ```bash
    npm run dev
