@@ -78,9 +78,8 @@ export default function Home() {
 				<label className='text-lg font-semibold mb-2 block' htmlFor='country'>
 					Pais
 				</label>
-				<form.Field
-					name='country'
-					children={(field) => (
+				<form.Field name='country'>
+					{(field) => (
 						<div className='flex gap-x-2 w-full relative'>
 							<Input
 								autoFocus
@@ -108,7 +107,7 @@ export default function Home() {
 							{country && <Button onClick={handleClear}>Ver todas las empresas</Button>}
 						</div>
 					)}
-				/>
+				</form.Field>
 
 				<datalist id='valid-countries'>
 					<option value='Canada'></option>
